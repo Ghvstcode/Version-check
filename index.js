@@ -17,61 +17,61 @@
 //for its dependency status
 //3.
 
-// const Table = require('cli-table');
-
-// const table = (content) =>{
-//     var table = new Table({
-//         head: ['Package Name', 'installed', 'latest', 'UptoDate']
-//     //   , colWidths: [100, 200]
-//     });
-    
-//     // table is an Array, so you can `push`, `unshift`, `splice` and friends
-//     table.push(content);
-    
-//     console.log(table.toString());
-// }
+const Table = require('cli-table');
 
 const table = (content) =>{
-    // import {
-    //     createStream
-    // } from 'table';
-    const { createStream } = require('table')
-      
-      let config,
-        stream,
-        i;
-      
-      config = {
-        columnDefault: {
-          width: 100
-        },
-        columnCount: 5,
-        // columns: {
-        //   0: {
-        //     width: 10,
-        //     alignment: 'right'
-        //   },
-        //   1: {
-        //     alignment: 'center',
-        //   },
-        //   2: {
-        //     width: 10
-        //   }
-        // }
-      };
-      
-      stream = createStream(config);
-      
-      i = 0;
-      
-      //setInterval(() => {
-        //let random;
-      
-        //random = _.sample('abcdefghijklmnopqrstuvwxyz', _.random(1, 30)).join('');
-      
-        stream.write(content);
-    //   }, 500);
+    var table = new Table({
+        head: ['Package Name', 'installed', 'latest', 'UptoDate']
+    //   , colWidths: [100, 200]
+    });
+    
+    // table is an Array, so you can `push`, `unshift`, `splice` and friends
+    table.push(content);
+    
+    console.log(table.toString());
 }
+
+// const table = (content) =>{
+//     // import {
+//     //     createStream
+//     // } from 'table';
+//     const { createStream } = require('table')
+      
+//       let config,
+//         stream,
+//         i;
+      
+//       config = {
+//         columnDefault: {
+//           width: 100
+//         },
+//         columnCount: 4,
+//         columns: {
+//           0: {
+//             width: 10,
+//             alignment: 'right'
+//           },
+//           1: {
+//             alignment: 'center',
+//           },
+//           2: {
+//             width: 10
+//           }
+//         }
+//       };
+      
+//       stream = createStream(config);
+      
+//       i = 0;
+      
+//       //setInterval(() => {
+//         //let random;
+      
+//         //random = _.sample('abcdefghijklmnopqrstuvwxyz', _.random(1, 30)).join('');
+      
+//         stream.write(content);
+//     //   }, 500);
+// }
 
 
 
@@ -93,6 +93,8 @@ const dataBuffer = fs.readFileSync('package.json')
 const dataJSON = dataBuffer.toString()
 const PackageObject = JSON.parse(dataJSON).dependencies
 //console.log(PackageObject)
+const L = Object.keys(PackageObject).length
+//console.log(L)
 
 for (const property in PackageObject) { 
     //console.log(`${property}: ${PackageObject[property]}`);
@@ -100,6 +102,7 @@ for (const property in PackageObject) {
     //const version = async
     let rawV = PackageObject[property]
     let installedV = rawV.replace("^", "")
+    let i = 0
     //console.log(installedV)
     const getV = async (PkgName) =>{
         const pkgDetails = await _(PkgName)
@@ -108,19 +111,21 @@ for (const property in PackageObject) {
             name: pkgDetails.name,
             version: pkgDetails.version
         }
-
         return PkgObj
     }
 
-    getV(property).then((data)=>{
-        let arr = Object.values(data)
-        arr.push(data.version, installedV===data.version)
-        //console.log(arr)
-        table(arr)
-        //console.log(data)
-    }).catch((err)=>{
-        console.log(err)
-    })
+        getV(property).then((data)=>{
+            let arr = i++
+            arr= Object.values(data)
+            arr.push(data.version, installedV===data.version)
+            console.log(i)
+            //table(arr)
+            //console.log(data)
+            //console.log(C)
+        }).catch((err)=>{
+            console.log(err)
+        })
+
 
 }
 
