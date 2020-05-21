@@ -18,23 +18,66 @@
 //3.
 
 // const Table = require('cli-table');
-// var table = new Table({
-//     head: ['Package Name', 'installed', 'latest', 'UptoDate']
-// //   , colWidths: [100, 200]
-// });
- 
-// // table is an Array, so you can `push`, `unshift`, `splice` and friends
-// table.push(
-//     ['1a', '1b',]
-//   , ['1c', '1d']
-// );
- 
-// console.log(table.toString());
+
+// const table = (content) =>{
+//     var table = new Table({
+//         head: ['Package Name', 'installed', 'latest', 'UptoDate']
+//     //   , colWidths: [100, 200]
+//     });
+    
+//     // table is an Array, so you can `push`, `unshift`, `splice` and friends
+//     table.push(content);
+    
+//     console.log(table.toString());
+// }
+
+const table = (content) =>{
+    // import {
+    //     createStream
+    // } from 'table';
+    const { createStream } = require('table')
+      
+      let config,
+        stream,
+        i;
+      
+      config = {
+        columnDefault: {
+          width: 100
+        },
+        columnCount: 5,
+        // columns: {
+        //   0: {
+        //     width: 10,
+        //     alignment: 'right'
+        //   },
+        //   1: {
+        //     alignment: 'center',
+        //   },
+        //   2: {
+        //     width: 10
+        //   }
+        // }
+      };
+      
+      stream = createStream(config);
+      
+      i = 0;
+      
+      //setInterval(() => {
+        //let random;
+      
+        //random = _.sample('abcdefghijklmnopqrstuvwxyz', _.random(1, 30)).join('');
+      
+        stream.write(content);
+    //   }, 500);
+}
 
 
 
 
-    var obj = { "1": 5, "2": 7, "3": 0, "4": 0, "5": 0 }; 
+
+   // var obj = { "1": 5, "2": 7, "3": 0, "4": 0, "5": 0 }; 
       
     // Using Object.keys() and map() function 
     // to convert convert an Object {} to an  
@@ -57,7 +100,7 @@ for (const property in PackageObject) {
     //const version = async
     let rawV = PackageObject[property]
     let installedV = rawV.replace("^", "")
-    console.log(installedV)
+    //console.log(installedV)
     const getV = async (PkgName) =>{
         const pkgDetails = await _(PkgName)
         //console.log(await property)
@@ -71,8 +114,9 @@ for (const property in PackageObject) {
 
     getV(property).then((data)=>{
         let arr = Object.values(data)
-        console.log(arr)
-        arr.push(data.version, )
+        arr.push(data.version, installedV===data.version)
+        //console.log(arr)
+        table(arr)
         //console.log(data)
     }).catch((err)=>{
         console.log(err)
