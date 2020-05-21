@@ -17,49 +17,67 @@
 //for its dependency status
 //3.
 
-const Table = require('cli-table');
-var table = new Table({
-    head: ['TH 1 label', 'TH 2 label']
-//   , colWidths: [100, 200]
-});
+// const Table = require('cli-table');
+// var table = new Table({
+//     head: ['Package Name', 'installed', 'latest', 'UptoDate']
+// //   , colWidths: [100, 200]
+// });
  
-// table is an Array, so you can `push`, `unshift`, `splice` and friends
-table.push(
-    ['1a', '1b',]
-  , ['1c', '1d']
-);
+// // table is an Array, so you can `push`, `unshift`, `splice` and friends
+// table.push(
+//     ['1a', '1b',]
+//   , ['1c', '1d']
+// );
  
-console.log(table.toString());
+// console.log(table.toString());
 
 
 
 
-// const yargs = require('yargs')
-// const fs = require('fs')
-// const _ = require('package-json')
-// const dataBuffer = fs.readFileSync('package.json')
-// //console.log('buffer:',dataBuffer)
-// const dataJSON = dataBuffer.toString()
-// const PackageObject = JSON.parse(dataJSON).dependencies
-// //console.log(PackageObject)
+    var obj = { "1": 5, "2": 7, "3": 0, "4": 0, "5": 0 }; 
+      
+    // Using Object.keys() and map() function 
+    // to convert convert an Object {} to an  
+    // Array [] of key-value pairs 
+  
 
-// for (const property in PackageObject) { 
-//     console.log(`${property}: ${PackageObject[property]}`);
-//     //console.log(property)
-//     //const version = async
-//     const getV = async (PkgName) =>{
-//         const pkgDetails = await _(PkgName)
-//         //console.log(await property)
 
-//         return pkgDetails.version
-//     }
+const yargs = require('yargs')
+const fs = require('fs')
+const _ = require('package-json')
+const dataBuffer = fs.readFileSync('package.json')
+//console.log('buffer:',dataBuffer)
+const dataJSON = dataBuffer.toString()
+const PackageObject = JSON.parse(dataJSON).dependencies
+//console.log(PackageObject)
 
-//     getV(property).then((data)=>{
-//         console.log(data)
-//     }).catch((err)=>{
-//         console.log(err)
-//     })
+for (const property in PackageObject) { 
+    //console.log(`${property}: ${PackageObject[property]}`);
+    //console.log(PackageObject[property])
+    //const version = async
+    let rawV = PackageObject[property]
+    let installedV = rawV.replace("^", "")
+    console.log(installedV)
+    const getV = async (PkgName) =>{
+        const pkgDetails = await _(PkgName)
+        //console.log(await property)
+        const PkgObj = {
+            name: pkgDetails.name,
+            version: pkgDetails.version
+        }
 
-// }
+        return PkgObj
+    }
+
+    getV(property).then((data)=>{
+        let arr = Object.values(data)
+        console.log(arr)
+        arr.push(data.version, )
+        //console.log(data)
+    }).catch((err)=>{
+        console.log(err)
+    })
+
+}
 
 //return JSON.parse(dataJSON)
