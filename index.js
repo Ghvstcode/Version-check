@@ -17,15 +17,49 @@
 //for its dependency status
 //3.
 
+const Table = require('cli-table');
+var table = new Table({
+    head: ['TH 1 label', 'TH 2 label']
+//   , colWidths: [100, 200]
+});
+ 
+// table is an Array, so you can `push`, `unshift`, `splice` and friends
+table.push(
+    ['1a', '1b',]
+  , ['1c', '1d']
+);
+ 
+console.log(table.toString());
 
 
 
 
+// const yargs = require('yargs')
+// const fs = require('fs')
+// const _ = require('package-json')
+// const dataBuffer = fs.readFileSync('package.json')
+// //console.log('buffer:',dataBuffer)
+// const dataJSON = dataBuffer.toString()
+// const PackageObject = JSON.parse(dataJSON).dependencies
+// //console.log(PackageObject)
 
-const yargs = require('yargs')
-const fs = require('fs')
-const dataBuffer = fs.readFileSync('../lop.json')
-//console.log('buffer:',dataBuffer)
-const dataJSON = dataBuffer.toString()
-console.log(JSON.parse(dataJSON))
+// for (const property in PackageObject) { 
+//     console.log(`${property}: ${PackageObject[property]}`);
+//     //console.log(property)
+//     //const version = async
+//     const getV = async (PkgName) =>{
+//         const pkgDetails = await _(PkgName)
+//         //console.log(await property)
+
+//         return pkgDetails.version
+//     }
+
+//     getV(property).then((data)=>{
+//         console.log(data)
+//     }).catch((err)=>{
+//         console.log(err)
+//     })
+
+// }
+
 //return JSON.parse(dataJSON)
