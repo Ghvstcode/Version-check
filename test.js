@@ -97,7 +97,7 @@ try {
     //const f = path.dirname("lop.json")
     //const f = path.resolve("package.json", '.../package.json')
     //const f = path.dirname(process.mainModule."package")
-    const f = fs.readFileSync(path.join(__dirname, '../', 'lo.json'))
+    const f = fs.readFileSync(path.join(__dirname, '../', 'lop.json'))
     console.log(f)
 } catch(err){
     console.log(err)

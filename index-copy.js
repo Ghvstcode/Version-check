@@ -14,7 +14,7 @@ const exitFnc = (text)=>{
     setTimeout(() => {
         spinner.color = 'blue';
         spinner.text = chalk.red(text);
-        process.exit(0)
+        //process.exit(0)
     }, 3000);
 }
 
@@ -33,8 +33,8 @@ const parseFunction = (dataB, objSelector) =>{
         const PackageObject1 = JSON.parse(dataJSON).dependencies
         const PackageObject2 = JSON.parse(dataJSON).devDependencies
 
-        const PackageObject = {...PackageObject1, PackageObject2}
-
+        const PackageObject = {...PackageObject1, ...PackageObject2}
+        //console.log("na me :", PackageObject)
         return PackageObject
     }
 }
@@ -91,6 +91,7 @@ const pkgFnc = async (dir, type) => {
     for (const property in PkgObject) {
 
         let rawV = PkgObject[property]
+        //console.log(rawV)
         let installedV = rawV.replace("^", "")
 
         const getV = async (PkgName) =>{
@@ -107,6 +108,12 @@ const pkgFnc = async (dir, type) => {
             ar.push(data.version, installedV===data.version)
             arr.push(ar)
 
+            while (arr.length < L) {
+                arr.length++
+                exitFnc("Waiting")
+                //console.log("hello")
+            }
+
             if(arr.length === L){
                 table(arr);
 
@@ -114,6 +121,7 @@ const pkgFnc = async (dir, type) => {
             
         }).catch((err)=>{
             console.log(err.name)
+            process.exit
         })
     }
 

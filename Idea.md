@@ -33,3 +33,6 @@ if the user says true, the parent directory would be searched!
 if the file is undefined || could not be found, Exit the process using the spinner.
 if the file is found return the databuffer!!!!
 
+-Create a box to output the error from the pkg if any
+-futher style the table making sure the true message prints in green and false in red!!!
+-CACHING
