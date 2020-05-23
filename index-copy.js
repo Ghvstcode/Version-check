@@ -58,57 +58,55 @@ const pkgFnc = (dir, type) => {
             } 
             if (answers.check === true){
                 try{
-                    dataBuffer = fs.readFileSync(_dir)
+                    dataBuffer = fs.readFileSync(path.join(__dirname, '../', _dir))
                     //Concatenate with ../ to check the parent dir,
                     return dataBuffer
                 } catch(err){
                     return exitFnc('Unable to find file, Exiting...')
                 }
             } 
-          //console.info('Answer:', answers.reptiles);
         });
     }
-    const a = () =>{
 
-    }
     // console.log('buffer:', dataBuffer)
 
     const PkgObject = parseFunction(dataBuffer, type)
 
     // console.log(PackageObject.dependencies, PackageObject.devDependencies)
 
-    // const L = Object.keys(PkgObject).length
+    const L = Object.keys(PkgObject).length
 
-    // let arr = [] 
-    // for (const property in PkgObject) {
+    let arr = [] 
+    for (const property in PkgObject) {
 
-    //     let rawV = PkgObject[property]
-    //     let installedV = rawV.replace("^", "")
+        let rawV = PkgObject[property]
+        let installedV = rawV.replace("^", "")
 
-    //     const getV = async (PkgName) =>{
-    //         const pkgDetails = await _(PkgName)
-    //         const PkgObj = {
-    //             name: pkgDetails.name,
-    //             version: pkgDetails.version
-    //         }
-    //         return PkgObj
-    //     }
+        const getV = async (PkgName) =>{
+            const pkgDetails = await _(PkgName)
+            const PkgObj = {
+                name: pkgDetails.name,
+                version: pkgDetails.version
+            }
+            return PkgObj
+        }
 
-    //     getV(property).then((data)=>{
-    //         let ar= Object.values(data)
-    //         ar.push(data.version, installedV===data.version)
-    //         arr.push(ar)
+        getV(property).then((data)=>{
+            let ar= Object.values(data)
+            ar.push(data.version, installedV===data.version)
+            arr.push(ar)
 
-    //         if(arr.length === L){
-    //             T(arr);
+            if(arr.length === L){
+                T(arr);
 
-    //         }
+            }
             
-    //     }).catch((err)=>{
-    //         console.log(err.name)
-    //     })
-    // }
+        }).catch((err)=>{
+            console.log(err.name)
+        })
+    }
 
 }
 
 
+module.exports = pkgFnc

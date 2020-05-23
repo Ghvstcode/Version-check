@@ -89,9 +89,16 @@
 // tableu(data)
 
 const fs = require('fs')
+const path = require('path')
 
 try {
-    const f = fs.readFileSync('packag.json') 
+    //const f = path.basename("package.json")
+    //fs.readFileSync('packag.json') 
+    //const f = path.dirname("lop.json")
+    //const f = path.resolve("package.json", '.../package.json')
+    //const f = path.dirname(process.mainModule."package")
+    const f = fs.readFileSync(path.join(__dirname, '../', 'lo.json'))
+    console.log(f)
 } catch(err){
-    console.log("Pheeeewwww!!!")
+    console.log(err)
 }
