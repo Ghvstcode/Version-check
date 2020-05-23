@@ -27,6 +27,12 @@ const table = (content) =>{
     
     // table is an Array, so you can `push`, `unshift`, `splice` and friends
     table.push(content);
+
+        //table.push(data);
+        // let prev = curr;
+        // var curr = table.toString().split('\n');
+        // console.log(curr.slice(prev.length, curr.length).join('\n'));
+
     
     console.log(table.toString());
 }
@@ -87,22 +93,27 @@ const table = (content) =>{
 
 const yargs = require('yargs')
 const fs = require('fs')
+const stream = require('stream')
 const _ = require('package-json')
 const dataBuffer = fs.readFileSync('package.json')
 //console.log('buffer:',dataBuffer)
 const dataJSON = dataBuffer.toString()
 const PackageObject = JSON.parse(dataJSON).dependencies
-//console.log(PackageObject)
+console.log(PackageObject)
+let k = (Object.keys(PackageObject))
+let v = (Object.values(PackageObject))
 const L = Object.keys(PackageObject).length
 //console.log(L)
 
-for (const property in PackageObject) { 
+//for (const property in PackageObject) {
+    let properties = []
+    
     //console.log(`${property}: ${PackageObject[property]}`);
     //console.log(PackageObject[property])
     //const version = async
-    let rawV = PackageObject[property]
-    let installedV = rawV.replace("^", "")
-    let i = 0
+    //let rawV = PackageObject[property]
+    //let installedV = rawV.replace("^", "")
+    //let i = 0
     //console.log(installedV)
     const getV = async (PkgName) =>{
         const pkgDetails = await _(PkgName)
@@ -114,19 +125,48 @@ for (const property in PackageObject) {
         return PkgObj
     }
 
-        getV(property).then((data)=>{
-            let arr = i++
-            arr= Object.values(data)
-            arr.push(data.version, installedV===data.version)
-            console.log(i)
-            //table(arr)
-            //console.log(data)
-            //console.log(C)
-        }).catch((err)=>{
-            console.log(err)
+    dataArray = [];
+    for (var i = 0; i<k.length; i++){
+        console.log(k[i])
+        //let darray = []
+        //dataArray.push(k[i])
+        //await dataArray.push(getV(k[i]))
+        getV(k[i]).then((data)=>{
+            //console.log(k[i],data)
+            let ar= Object.values(data)
+            //console.log(ar)
+            darray.push(ar)
+            console.log(darray)
+            //return dataArray.push(data)
         })
 
+        //dataArray.push(data)
+    }
 
-}
+console.log(dataArray)
+    //     getV(property).then((data)=>{
+    //         // const EventEmitter = require('events');
 
+    //         // class MyEmitter extends EventEmitter {}
+    //         // const myEmitter = new MyEmitter();
+    //         // myEmitter.on('data', () => {
+    //         //     let name = data.name
+    //         //     name = Object.values(data)
+    //         //     console.log(name)
+    //         //     table(name)
+    //         // })
+
+    //         // myEmitter.emit('data');
+    //         //let arr = i++
+    //         let ar= Object.values(data)
+    //         ar.push(Object.values(data), data.version, installedV===data.version)
+    //     }).catch((err)=>{
+    //         console.log("err")
+    //     })
+
+    //     //console.log(arr)
+    //     //table(arr)
+
+//}
+//console.log(arr)
 //return JSON.parse(dataJSON)
