@@ -16,3 +16,20 @@
 //2. This one collects the path or name of the file and searches it 
 //for its dependency status
 //3.
+
+
+
+
+
+-if the dbf is present: 
+run parse function,
+calling it with the dbf and type/objSelector
+save the value of the parse function into a PkgObj which will then loop over
+
+-If the dbf occured/dbf is not present:
+run the inquirer!
+if the user says false, it exits
+if the user says true, the parent directory would be searched!
+if the file is undefined || could not be found, Exit the process using the spinner.
+if the file is found return the databuffer!!!!
+
