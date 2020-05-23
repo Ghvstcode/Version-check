@@ -4,6 +4,9 @@ const _ = require('package-json')
 const inquirer = require('inquirer');
 const chalk = require('chalk')
 const ora = require('ora');
+const path = require('path')
+const table = require('./utils/Table')
+
 
 const exitFnc = (text)=>{
     const spinner = ora(chalk.red(text)).start();
@@ -36,41 +39,49 @@ const parseFunction = (dataB, objSelector) =>{
     }
 }
 
-const pkgFnc = (dir, type) => {
-    let dataBuffer;
-    let _dir = 'packge.json'||dir
+const pkgFnc = async (dir, type) => {
+    let dataBuffer = [];
+    let _dir = dir
     try{
-        dataBuffer = fs.readFileSync(_dir)
+        let firstdataBuffer = fs.readFileSync(_dir)
+        dataBuffer.push(firstdataBuffer)
     } catch(err){
-       return inquirer
+        await inquirer
         .prompt([
-          {
+            {
             type: 'confirm',
             name: 'check',
             message: `Unable to find the file, would you like to check the parent directory for ${_dir}`,
             default: false
-          },
+            },
         ])
-        .then(answers => {
+        .then((answers) => {
 
             if (answers.check === false){
                 return exitFnc('Exiting...')
             } 
+
             if (answers.check === true){
                 try{
-                    dataBuffer = fs.readFileSync(path.join(__dirname, '../', _dir))
+                    let newDataBuffer = fs.readFileSync(path.join(__dirname, '../', _dir))
                     //Concatenate with ../ to check the parent dir,
+                    //return dataBuffer
+                    //console.log(newDataBuffer)
+                    dataBuffer.push(newDataBuffer)
                     return dataBuffer
                 } catch(err){
+                    //console.log(err)
                     return exitFnc('Unable to find file, Exiting...')
                 }
             } 
         });
+       
     }
-
+    //console.log(dataBuffer)
     // console.log('buffer:', dataBuffer)
 
-    const PkgObject = parseFunction(dataBuffer, type)
+    const PkgObject = parseFunction(dataBuffer[0], type)
+    console.log(PkgObject)
 
     // console.log(PackageObject.dependencies, PackageObject.devDependencies)
 
@@ -97,7 +108,7 @@ const pkgFnc = (dir, type) => {
             arr.push(ar)
 
             if(arr.length === L){
-                T(arr);
+                table(arr);
 
             }
             

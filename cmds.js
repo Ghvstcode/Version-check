@@ -1,4 +1,5 @@
 const yargs = require('yargs')
+const pkgFnc = require('./index-copy')
 //console.log("hello")
 //add,
 yargs.command({
@@ -12,13 +13,13 @@ yargs.command({
         },
     },
     handler: function (argv) {
-        console.log("hello", argv.path)
+        pkgFnc(argv.path, 'dependencies')
     }
 })
 
 yargs.command({
     command: 'stats-dev',
-    describe: 'Check all Devdependencies to see if they are up to date',
+    describe: 'Check all devDependencies to see if they are up to date',
     builder: {
         path: {
           describe:'Path to the package file' ,
@@ -27,7 +28,7 @@ yargs.command({
         },
     },
     handler: function (argv) {
-        console.log("hello", argv.path)
+        pkgFnc(argv.path, 'devDependencies')
     }
 })
 
@@ -42,7 +43,7 @@ yargs.command({
         },
     },
     handler: function (argv) {
-        console.log("hello", argv.path)
+        pkgFnc(argv.path, 'all')
     }
 })
 

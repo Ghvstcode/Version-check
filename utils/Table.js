@@ -12,3 +12,5 @@ const T = (content) =>{
     console.log(table.toString())
     
 }
+
+module.exports = T
