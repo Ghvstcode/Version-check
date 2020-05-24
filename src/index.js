@@ -1,5 +1,5 @@
 const yargs = require('yargs')
-const pkgFnc = require('./index-copy')
+const pkgFnc = require('./pkgFnc')
 //console.log("hello")
 //add,
 yargs.command({

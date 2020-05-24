@@ -1,60 +1,24 @@
-const yargs = require('yargs')
 const fs = require('fs')
-const _ = require('package-json')
 const inquirer = require('inquirer');
 const chalk = require('chalk')
 const ora = require('ora');
 const path = require('path')
-const table = require('./utils/Table')
 
+const parseFunction = require('../utils/parseFunction')
+const table = require('../utils/Table')
+const getV = require('../utils/getVersion')
 
-const exitFnc = (text)=>{
-    const spinner = ora(chalk.red(text)).start();
-
-    setTimeout(() => {
-        spinner.color = 'blue';
-        spinner.text = chalk.red(text);
-        process.exit(0)
-    });
-}
-
-const parseFunction = (dataB, objSelector) =>{
-    const dataJSON = dataB.toString()
-
-    if(objSelector === 'dependencies') {
-        const PackageObject = JSON.parse(dataJSON).dependencies
-        return PackageObject
-    }
-    if(objSelector === 'devDependencies') {
-        const PackageObject = JSON.parse(dataJSON).devDependencies
-        return PackageObject
-    }
-    if(objSelector === 'all') {
-        const PackageObject1 = JSON.parse(dataJSON).dependencies
-        const PackageObject2 = JSON.parse(dataJSON).devDependencies
-
-        const PackageObject = {...PackageObject1, ...PackageObject2}
-        //console.log("na me :", PackageObject)
-        return PackageObject
-    }
-}
-
-const getV = async (PkgName) =>{
-    const pkgDetails = await _(PkgName)
-    const PkgObj = {
-        name: pkgDetails.name,
-        version: pkgDetails.version
-    }
-    return PkgObj
-}
+const spinner = ora().start();
 
 const pkgFnc = async (dir, type) => {
     let dataBuffer = [];
     let _dir = dir
+    
     try{
         let firstdataBuffer = fs.readFileSync(_dir)
         dataBuffer.push(firstdataBuffer)
     } catch(err){
+        spinner.stop()
         await inquirer
         .prompt([
             {
@@ -67,26 +31,29 @@ const pkgFnc = async (dir, type) => {
         .then((answers) => {
 
             if (answers.check === false){
-                exitFnc('Exiting...')
+                spinner.text = chalk.red("exiting")
+                spinner.stopAndPersist("exiting...")
+                //exitFnc('Exiting...')
                 process.exit(0)
             } 
 
             if (answers.check === true){
                 try{
                     let newDataBuffer = fs.readFileSync(path.join(__dirname, '../', _dir))
-                    //Concatenate with ../ to check the parent dir,
-                    //return dataBuffer
-                    //console.log(newDataBuffer)
                     dataBuffer.push(newDataBuffer)
                     return dataBuffer
                 } catch(err){
-                    exitFnc('Unable to find file, Exiting...')
+
+                    spinner.text = chalk.red("exiting")
+                    spinner.stopAndPersist("exited")
                     process.exit(0)
                 }
             } 
         });
        
     }
+    spinner.text = chalk.yellow("Loading")
+    spinner.start()
 
     const PkgObject = parseFunction(dataBuffer[0], type)
 
@@ -94,7 +61,6 @@ const pkgFnc = async (dir, type) => {
     let arr = [] 
 
     for (const property in PkgObject) {
-
         let rawV = PkgObject[property]
         let installedV = rawV.replace("^", "")
 
@@ -105,8 +71,8 @@ const pkgFnc = async (dir, type) => {
 
 
             if(arr.length === L){
+                spinner.succeed("Done")
                 table(arr);
-                ora().succeed("Done");
             }
             
         }).catch((err)=>{
