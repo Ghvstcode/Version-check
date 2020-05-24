@@ -14,8 +14,8 @@ const exitFnc = (text)=>{
     setTimeout(() => {
         spinner.color = 'blue';
         spinner.text = chalk.red(text);
-        //process.exit(0)
-    }, 3000);
+        process.exit(0)
+    });
 }
 
 const parseFunction = (dataB, objSelector) =>{
@@ -39,6 +39,15 @@ const parseFunction = (dataB, objSelector) =>{
     }
 }
 
+const getV = async (PkgName) =>{
+    const pkgDetails = await _(PkgName)
+    const PkgObj = {
+        name: pkgDetails.name,
+        version: pkgDetails.version
+    }
+    return PkgObj
+}
+
 const pkgFnc = async (dir, type) => {
     let dataBuffer = [];
     let _dir = dir
@@ -58,7 +67,8 @@ const pkgFnc = async (dir, type) => {
         .then((answers) => {
 
             if (answers.check === false){
-                return exitFnc('Exiting...')
+                exitFnc('Exiting...')
+                process.exit(0)
             } 
 
             if (answers.check === true){
@@ -70,53 +80,33 @@ const pkgFnc = async (dir, type) => {
                     dataBuffer.push(newDataBuffer)
                     return dataBuffer
                 } catch(err){
-                    //console.log(err)
-                    return exitFnc('Unable to find file, Exiting...')
+                    exitFnc('Unable to find file, Exiting...')
+                    process.exit(0)
                 }
             } 
         });
        
     }
-    //console.log(dataBuffer)
-    // console.log('buffer:', dataBuffer)
 
     const PkgObject = parseFunction(dataBuffer[0], type)
-    console.log(PkgObject)
 
-    // console.log(PackageObject.dependencies, PackageObject.devDependencies)
-
-    const L = Object.keys(PkgObject).length
-
+    let L = Object.keys(PkgObject).length
     let arr = [] 
+
     for (const property in PkgObject) {
 
         let rawV = PkgObject[property]
-        //console.log(rawV)
         let installedV = rawV.replace("^", "")
-
-        const getV = async (PkgName) =>{
-            const pkgDetails = await _(PkgName)
-            const PkgObj = {
-                name: pkgDetails.name,
-                version: pkgDetails.version
-            }
-            return PkgObj
-        }
 
         getV(property).then((data)=>{
             let ar= Object.values(data)
-            ar.push(data.version, installedV===data.version)
+            ar.push(installedV, installedV===data.version)
             arr.push(ar)
 
-            while (arr.length < L) {
-                arr.length++
-                exitFnc("Waiting")
-                //console.log("hello")
-            }
 
             if(arr.length === L){
                 table(arr);
-
+                ora().succeed("Done");
             }
             
         }).catch((err)=>{
@@ -124,7 +114,6 @@ const pkgFnc = async (dir, type) => {
             process.exit
         })
     }
-
 }
 
 
