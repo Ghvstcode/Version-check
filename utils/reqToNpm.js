@@ -1,8 +1,8 @@
 const axios = require('axios')
 
 
-const getPkg = (pkgName) => {
-
+const getPkg = async (pkgName) => {
+    let r;
     class PackageError extends Error {
         constructor(packageName) {
             super(`Package \`${packageName}\` could not be found`);
@@ -16,15 +16,18 @@ const getPkg = (pkgName) => {
 
     const url = `https://registry.npmjs.org/${pkgName}`
 
-    axios.get(url)
-    .then(function (response) {
-        // handle success
-        return {version: response.data['dist-tags'].latest, name: response.data.name};
+    await axios.get(url)
+    .then((response) =>{
+        r = {name: response.data.name, version: response.data['dist-tags'].latest}
     })
     .catch(function (error) {
         throw new PackageError(pkgName)
     })
+
+    return r;
 }
 
 module.exports = getPkg;
+
+
 

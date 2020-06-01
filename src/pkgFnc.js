@@ -69,7 +69,6 @@ const pkgFnc = async (dir, type) => {
             ar.push(installedV, installedV===data.version)
             arr.push(ar)
 
-
             if(arr.length === L){
                 spinner.succeed("Done")
                 table(arr);

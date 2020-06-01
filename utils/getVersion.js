@@ -1,12 +1,13 @@
-const _ = require('package-json')
+const _ = require('./reqToNpm')
 
 const getVersion = async (PkgName) =>{
     const pkgDetails = await _(PkgName)
+    
     const PkgObj = {
-        name: pkgDetails.name,
-        version: pkgDetails.version
+        ...pkgDetails
     }
     return PkgObj
 }
+
 
 module.exports = getVersion;
