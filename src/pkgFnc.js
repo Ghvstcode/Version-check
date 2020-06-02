@@ -44,7 +44,7 @@ const pkgFnc = async (dir, type) => {
                     return dataBuffer
                 } catch(err){
 
-                    spinner.text = chalk.red("exiting")
+                    spinner.text = chalk.red("File not found! exiting")
                     spinner.stopAndPersist("exited")
                     process.exit(0)
                 }
@@ -71,7 +71,7 @@ const pkgFnc = async (dir, type) => {
 
             if(arr.length === L){
                 spinner.succeed("Done")
-                table(arr);
+                console.log(table(arr).toString());
             }
             
         }).catch((err)=>{

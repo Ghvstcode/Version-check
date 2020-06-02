@@ -16,6 +16,13 @@ const parseFunction = (dataB, objSelector) =>{
         const PackageObject = {...PackageObject1, ...PackageObject2}
         return PackageObject
     }
+
+    const PackageObject = JSON.parse(dataJSON)
+    return PackageObject
+
 }
+
+// const b =   
+// // parseFunction('Buffer 61 61 61 61 61>')
 
 module.exports = parseFunction;

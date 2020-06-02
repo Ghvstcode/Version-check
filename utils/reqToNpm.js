@@ -20,7 +20,8 @@ const getPkg = async (pkgName) => {
     .then((response) =>{
         r = {name: response.data.name, version: response.data['dist-tags'].latest}
     })
-    .catch(function (error) {
+    .catch((error)=>{
+        return error
         throw new PackageError(pkgName)
     })
 

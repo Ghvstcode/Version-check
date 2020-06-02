@@ -8,9 +8,11 @@ const T = (content) =>{
     table.push(
         ...content
     );
-        
+    
+    return table
     console.log(table.toString())
     
 }
 
 module.exports = T
+
