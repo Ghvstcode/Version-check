@@ -39,11 +39,11 @@ const pkgFnc = async (dir, type) => {
 
             if (answers.check === true){
                 try{
-                    let newDataBuffer = fs.readFileSync(path.join(__dirname, '../', _dir))
+                    console.log(path.join(__dirname, '../../', _dir))
+                    let newDataBuffer = fs.readFileSync(path.join(__dirname, '../../', _dir))
                     dataBuffer.push(newDataBuffer)
                     return dataBuffer
                 } catch(err){
-
                     spinner.text = chalk.red("File not found! exiting")
                     spinner.stopAndPersist("exited")
                     process.exit(0)

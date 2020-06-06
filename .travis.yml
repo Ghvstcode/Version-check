@@ -5,5 +5,6 @@ node_js:
 cache:
     directories:
         - node_modules
-install:
-    - npm install
+branches:
+    only:
+        - master

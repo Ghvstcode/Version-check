@@ -1,15 +1,14 @@
 {
-  "name": "Pkg",
+  "name": "Version-check",
   "version": "1.0.0",
-  "description": "",
+  "description": "Used to check if all the packages are up to date",
   "main": "index.js",
   "scripts": {
-    "test": "mocha",
-    "start": "nodemon index.js"
+    "test": "mocha"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "GhvstCode",
+  "license": "MIT",
   "dependencies": {
     "axios": "^0.19.2",
     "chalk": "^4.0.0",
@@ -24,5 +23,8 @@
   },
   "devDependencies": {
     "nodemon": "^1.17.5"
+  },
+  "bin": {
+    "version-check": "bin/index.js"
   }
 }

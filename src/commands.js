@@ -3,7 +3,7 @@ const pkgFnc = require('./pkgFnc')
 //console.log("hello")
 //add,
 yargs.command({
-    command: 'stats',
+    command: 'vc',
     describe: 'Check all dependencies to see if they are up to date',
     builder: {
         path: {
@@ -18,7 +18,7 @@ yargs.command({
 })
 
 yargs.command({
-    command: 'stats-dev',
+    command: 'vc-dev',
     describe: 'Check all devDependencies to see if they are up to date',
     builder: {
         path: {
@@ -33,7 +33,7 @@ yargs.command({
 })
 
 yargs.command({
-    command: 'stats-all',
+    command: 'vc-all',
     describe: 'Check all dependencies & Dev dependencies to see if they are up to date',
     builder: {
         path: {
