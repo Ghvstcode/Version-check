@@ -4,7 +4,7 @@ process.on("unhandledRejection", (err) => {
 	process.exit(0);
 });
 
-const yargs = require("yargs").scriptName("version-check");
+const yargs = require("yargs").scriptName("cli-version-checker");
 const{ vc, vc_dev, vc_all } = require("../src/commands");
 const helpText = require('../utils/helperText')
 

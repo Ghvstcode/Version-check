@@ -1,6 +1,6 @@
 {
-  "name": "npm-version-checker",
-  "version": "1.0.0",
+  "name": "cli-version-checker",
+  "version": "1.0.3",
   "description": "Used to check if all the packages are up to date",
   "main": "./bin/index.js",
   "scripts": {
@@ -42,6 +42,6 @@
     "nodemon": "^1.17.5"
   },
   "bin": {
-    "version-check": "bin/index.js"
+    "cli-version-checker": "./bin/index.js"
   }
 }
