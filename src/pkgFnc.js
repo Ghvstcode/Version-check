@@ -12,12 +12,12 @@ const spinner = ora().start();
 
 const pkgFnc = async (dir, type) => {
     let dataBuffer = [];
-    let _dir = dir
-    
+		let _dir = dir
+	
     try{
-        let firstdataBuffer = fs.readFileSync(_dir)
-        dataBuffer.push(firstdataBuffer)
-    } catch(err){
+				let firstdataBuffer = fs.readFileSync(_dir)
+				dataBuffer.push(firstdataBuffer)
+		} catch (err) {
         spinner.stop()
         await inquirer
         .prompt([
@@ -25,7 +25,7 @@ const pkgFnc = async (dir, type) => {
             type: 'confirm',
             name: 'check',
             message: `Unable to find the file, would you like to check the parent directory for ${_dir}`,
-            default: false
+            default: true
             },
         ])
         .then((answers) => {
@@ -55,7 +55,8 @@ const pkgFnc = async (dir, type) => {
     spinner.text = chalk.yellow("Loading")
     spinner.start()
 
-    const PkgObject = parseFunction(dataBuffer[0], type)
+		const PkgObject = parseFunction(dataBuffer[0], type)
+		// console.log(PkgObject);
 
     let L = Object.keys(PkgObject).length
     let arr = [] 
@@ -75,8 +76,8 @@ const pkgFnc = async (dir, type) => {
             }
             
         }).catch((err)=>{
-            console.log(err.name)
-            process.exit
+            // console.log(err)
+						process.exit(0)
         })
     }
 }

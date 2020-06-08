@@ -1,12 +1,12 @@
 const parseFunction = (dataB, objSelector) =>{
-    const dataJSON = dataB.toString()
+		const dataJSON = dataB.toString()
 
     if(objSelector === 'dependencies') {
         const PackageObject = JSON.parse(dataJSON).dependencies
         return PackageObject
     }
     if(objSelector === 'devDependencies') {
-        const PackageObject = JSON.parse(dataJSON).devDependencies
+				const PackageObject = JSON.parse(dataJSON).devDependencies
         return PackageObject
     }
     if(objSelector === 'all') {
