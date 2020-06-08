@@ -1,6 +1,6 @@
 {
-  "name": "cli-version-checker",
-  "version": "1.0.3",
+  "name": "@ghvst/version-check",
+  "version": "1.0.6",
   "description": "Used to check if all the packages are up to date",
   "main": "./bin/index.js",
   "scripts": {
@@ -31,7 +31,6 @@
     "cli-table": "^0.3.1",
     "inquirer": "^7.1.0",
     "mocha": "^7.2.0",
-    "nodemon": "^2.0.4",
     "ora": "^4.0.4",
     "package-json": "^6.5.0",
     "semantic-release": "^17.0.8",
@@ -42,6 +41,6 @@
     "nodemon": "^1.17.5"
   },
   "bin": {
-    "cli-version-checker": "./bin/index.js"
+    "version-check": "./bin/index.js"
   }
 }

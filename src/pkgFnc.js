@@ -15,8 +15,8 @@ const pkgFnc = async (dir, type) => {
 		let _dir = dir
 	
     try{
-				let firstdataBuffer = fs.readFileSync(_dir)
-				dataBuffer.push(firstdataBuffer)
+			let firstdataBuffer = fs.readFileSync(_dir)
+			dataBuffer.push(firstdataBuffer)
 		} catch (err) {
         spinner.stop()
         await inquirer
@@ -77,7 +77,7 @@ const pkgFnc = async (dir, type) => {
             
         }).catch((err)=>{
             // console.log(err)
-						process.exit(0)
+			process.exit(0)
         })
     }
 }
