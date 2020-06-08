@@ -20,7 +20,7 @@ const vc =(yargs) => {
 
 const vc_dev= (yargs)=>{
     return yargs.command({
-        command: 'vc-dev',
+        command: 'vc_dev',
         describe: 'Check all devDependencies to see if they are up to date',
         builder: {
             path: {
@@ -38,7 +38,7 @@ const vc_dev= (yargs)=>{
 
 const vc_all = (yargs) => {
     return yargs.command({
-        command: 'vc-all',
+        command: 'vc_all',
         describe: 'Check all dependencies & Dev dependencies to see if they are up to date',
         builder: {
             path: {
