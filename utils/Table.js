@@ -1,8 +1,9 @@
 const Table = require('cli-table');
 
 const T = (content) =>{
-    const table = new Table({
-       head: ['Package Name', 'installed', 'latest', 'UptoDate']
+	const table = new Table({
+			 style: {head: ['green']},
+       head: ['Package Name', 'Installed', 'Latest', 'Up to date?']
     });
 
     table.push(
@@ -10,7 +11,7 @@ const T = (content) =>{
     );
     
     return table
-    console.log(table.toString())
+    // console.log(table.toString())
     
 }
 
