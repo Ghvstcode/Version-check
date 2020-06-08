@@ -1,5 +1,6 @@
 const axios = require('axios')
-
+const chalk = require("chalk");
+const red = chalk.red;
 
 const getPkg = async (pkgName) => {
     let r;
@@ -20,9 +21,16 @@ const getPkg = async (pkgName) => {
     .then((response) =>{
         r = {name: response.data.name, version: response.data['dist-tags'].latest}
     })
-    .catch((error)=>{
-        return error
-        throw new PackageError(pkgName)
+			.catch((error) => {
+			// error handling
+			if (!error.status) {
+				console.log(
+					`${red(
+						`Oops😪 It seems you don't have internet connection. Please check and try again.`
+					)}`
+				);
+				process.exit(0);
+			}
     })
 
     return r;

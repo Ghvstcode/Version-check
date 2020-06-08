@@ -13,7 +13,7 @@ const vc =(yargs) => {
             },
         },
         handler: function (argv) {
-            pkgFnc(argv.path, 'dependencies')
+						pkgFnc(argv.path, 'dependencies')
         }
     })
 }
@@ -30,7 +30,8 @@ const vc_dev= (yargs)=>{
             },
         },
         handler: function (argv) {
-            pkgFnc(argv.path, 'devDependencies')
+					pkgFnc(argv.path, 'devDependencies')
+					process.env(0);
         }
     })
 }

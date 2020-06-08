@@ -10,7 +10,7 @@ const helpText = require('../utils/helperText')
 
 if (
 	yargs.argv._.filter((elem) => {
-		return elem === "vc" || elem === "vc_dev" ||elem === "vc_dev";
+		return elem === "vc" || elem === "vc_dev" ||elem === "vc_all";
 	}).length === 0
 ) {
 	helpText()
