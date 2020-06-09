@@ -1,6 +1,6 @@
 {
   "name": "@ghvst/version-check",
-  "version": "1.0.8",
+  "version": "1.1.0",
   "description": "Used to check if all the packages are up to date",
   "main": "./bin/index.js",
   "scripts": {
